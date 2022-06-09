@@ -1,6 +1,6 @@
 class Solution {
     public int myAtoi(String s) {
-        String number="";
+        StringBuilder number=new StringBuilder("");
         boolean digitsFound=false, signFound=false, wtSpaceEnd=false;
         for(int i=0; i<s.length(); i++)
         {
@@ -8,12 +8,12 @@ class Solution {
             else wtSpaceEnd=true;
             if(!signFound && !digitsFound && (s.charAt(i)=='-' || s.charAt(i)=='+') && i!=s.length()-1)
             {
-                number+=s.charAt(i);
+                number.append(s.charAt(i));
                 signFound=true;
                 continue;
             }
             if(s.charAt(i)<'0' || s.charAt(i)>'9') break;
-            number+=s.charAt(i);
+            number.append(s.charAt(i));
             digitsFound=true;
         }
         
