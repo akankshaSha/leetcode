@@ -3,7 +3,7 @@ class Solution {
     {
         if(strs.length==1) return strs[0];
         
-        String prefix="";
+        StringBuilder prefix=new StringBuilder("");
         String first=strs[0];
         for(int i=0; i<first.length(); i++)
         {
@@ -18,9 +18,9 @@ class Solution {
                     break;
                 }                
             }
-            if(contained) prefix+=c;
+            if(contained) prefix.append(c);
             else break;
         }
-        return prefix;
+        return prefix.toString();
     }
 }
