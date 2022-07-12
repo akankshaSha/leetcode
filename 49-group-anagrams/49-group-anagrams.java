@@ -1,51 +1,27 @@
-class Solution {
-    
-    public static boolean isAnagram(String s, String t)
-    {
-        if(s.length()!=t.length()) return false;
-        char h[]=new char [26];
-        for(int i=0; i<s.length(); i++)
-        {
-            h[s.charAt(i)-97]++;
-        }
-        
-        for(int i=0; i<t.length(); i++)
-        {
-            if(h[t.charAt(i)-97]<=0) return false;
-            h[t.charAt(i)-97]--;
-        }
-        return true;
-    }
-    
+class Solution {    
     public List<List<String>> groupAnagrams(String[] strs) {
+        List<List<String>> res=new ArrayList<>();
+        HashMap<String, List<String>> map=new HashMap<>();
         
-        List <List<String>> groups =new ArrayList<List<String>>();
-        
-        for(String str : strs)
+        for(String str: strs)
         {
-            // Check if hash matches a group
-            boolean matched=false;
-            for(List<String> group: groups)
+            char chArray[]=str.toCharArray();
+            Arrays.sort(chArray);
+            String s=new String(chArray);
+            List<String> group=new ArrayList<>();
+            if(map.containsKey(s))
             {
-                String match=group.get(0);
-                // if yes, then add group in that string
-                if(isAnagram(str, match))
-                {
-                    group.add(str);
-                    matched=true;
-                    break;
-                }
+                group=map.get(s);
             }
-            
-            // if no, add the string to a new group
-            if(!matched)
-            {
-                List<String> temp=new ArrayList<String>();
-                temp.add(str);
-                groups.add(temp);
-            }
+            group.add(str);
+            map.put(s, group);
         }
         
-        return groups;
+        for(List<String> groups: map.values())
+        {
+            res.add(groups);
+        }
+        
+        return res;
     }
 }
