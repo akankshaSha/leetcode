@@ -14,6 +14,42 @@
  * }
  */
 class Solution {
+    public List<Integer> rightSideView(TreeNode root)
+    {
+        List<Integer> res=new ArrayList<>();
+        if(root==null) return res;        
+        Stack<TreeNode> nodes=new Stack<>(); 
+        Stack<Integer> lvls=new Stack<>();
+        nodes.push(root);
+        lvls.push(0);
+        int nextLvl=0;
+        while(!nodes.empty())
+        {
+            TreeNode node=nodes.pop();
+            int lvl=lvls.pop();
+            if(lvl==nextLvl)
+            {
+                res.add(node.val);
+                nextLvl++;
+            }
+            if(node.left!=null)
+            {
+                nodes.push(node.left);
+                lvls.push(lvl+1);
+            }
+            if(node.right!=null)
+            {
+                nodes.push(node.right);
+                lvls.push(lvl+1);
+            }
+        }
+        return res;
+    }
+}
+
+/*
+// BFS solution:
+class Solution {
     public List<Integer> rightSideView(TreeNode root) {
         List<Integer> res=new ArrayList<>();
         if(root==null) return res;
@@ -47,3 +83,4 @@ class Solution {
         return res;
     }
 }
+*/
