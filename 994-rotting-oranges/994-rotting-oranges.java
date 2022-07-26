@@ -60,19 +60,6 @@ class Solution {
         return true;
     }
     
-    void printGrid(int[][]grid)
-    {
-        for(int[] row: grid)
-        {
-            for(int e: row)
-            {
-                System.out.print(e+" ");
-            }
-            System.out.println();
-        }
-        System.out.println();
-    }  
-    
     public int orangesRotting(int[][] grid) {
         HashSet<Cordinate> twos=getTwos(grid);
         if(isRotten(grid)) return 0;
