@@ -1,17 +1,13 @@
 class Solution {
-    public int[] twoSum(int[] numbers, int target) {
-        int a[]=new int[2];
-        for(int i=0; i<numbers.length; i++)
+    public int[] twoSum(int[] nums, int target) {
+        int i=0,j=0;
+        for(i=0; i<nums.length; i++)
         {
-            int s=target-numbers[i];
-            int j=Arrays.binarySearch(numbers, s);
-            if(j>=0 && i!=j)
-            {
-                a[0]=Math.min(i,j)+1;
-                a[1]=Math.max(i,j)+1;
-                break;
-            }
+            int s=target-nums[i];
+            j=Arrays.binarySearch(nums, i+1, nums.length, s);
+            if(j>=0) break;
         }
-        return a;
+        int res[]={i+1,j+1};
+        return res;
     }
 }
