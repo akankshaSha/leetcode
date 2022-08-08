@@ -25,7 +25,6 @@ class Solution {
         {
             char c=s.charAt(end);
             if(fs.containsKey(c)) fs.put(c, fs.get(c)+1);
-            //System.out.println(start+" "+" "+end+" "+fs+" "+ft+" "+inclusion(ft, fs));
             while(inclusion(ft, fs))
             {
                 int len=end-start+1;
@@ -37,21 +36,6 @@ class Solution {
                 char ch=s.charAt(start);
                 if(fs.containsKey(ch)) fs.put(ch, fs.get(ch)-1);
                 start++;
-            }
-        }
-        
-        for(; start<s.length(); start++)
-        {
-            if(inclusion(ft, fs))
-            {
-                int len=end-start+1;
-                if(len<minLen)
-                {
-                    minLen=len;
-                    res=s.substring(start, end+1);
-                }
-                char ch=s.charAt(start);
-                if(fs.containsKey(ch)) fs.put(ch, fs.get(ch)-1);
             }
         }
         return res;
