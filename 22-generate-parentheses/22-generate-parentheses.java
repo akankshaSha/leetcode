@@ -1,34 +1,41 @@
 class Solution {
-    static List<String> genP(int op, int cl, int n)
-    {
-        List<String> res=new ArrayList<>();        
-        if(n==cl)
-        {
-            res.add("");
-            return res;
-        }
-        if(op==n)
-        {
-            List<String> close=genP(op, cl+1, n);
-            for(int i=0; i<close.size(); i++) close.set(i, ")"+close.get(i));
-            return close;
-        }
-        if(op==cl)
-        {
-            List<String> open=genP(op+1, cl, n);
-            for(int i=0; i<open.size(); i++) open.set(i, "("+open.get(i));
-            return open;
-        }
-        List<String> open=genP(op+1, cl, n);
-        for(int i=0; i<open.size(); i++) open.set(i, "("+open.get(i));
-        List<String> close=genP(op, cl+1, n);
-        for(int i=0; i<close.size(); i++) close.set(i, ")"+close.get(i));
-        res.addAll(open);
-        res.addAll(close);  
-        return res;
-    }
     public List<String> generateParenthesis(int n) {
-        if(n==0) return new ArrayList<String>();
-        return genP(0, 0, n);
+        List<String> res=new ArrayList<>();
+        Stack<Integer> open=new Stack<>();
+        Stack<Integer> close=new Stack<>();
+        Stack<String> parentheses=new Stack<>();
+        open.push(0);
+        close.push(0);
+        parentheses.push("");
+        while(!parentheses.isEmpty())
+        {
+            int op=open.pop();
+            int cl=close.pop();
+            String p=parentheses.pop();
+            if(cl==n) res.add(p);
+            else if(op==n)
+            {
+                open.push(op);
+                close.push(cl+1);
+                parentheses.push(p+")");
+            }
+            else if(op==cl)
+            {
+                open.push(op+1);
+                close.push(cl);
+                parentheses.push(p+"(");
+            }
+            else
+            {
+                open.push(op);
+                close.push(cl+1);
+                parentheses.push(p+")");
+                open.push(op+1);
+                close.push(cl);
+                parentheses.push(p+"(");
+            }
+        }
+        
+        return res;
     }
 }
