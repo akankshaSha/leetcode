@@ -9,13 +9,6 @@
  * }
  */
 class Solution {
-    void roll(ListNode r, ListNode list, ListNode head)
-    {
-        if(r==null) head=r=list;
-        else r.next=list;
-        r=list;
-        list=list.next;
-    }
     public ListNode mergeTwoLists(ListNode list1, ListNode list2) {
         ListNode r=null, head=null;
         while(list1!=null || list2!=null)
