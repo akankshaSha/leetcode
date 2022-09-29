@@ -21,30 +21,17 @@ class Solution {
             p=q-1;
         }
         
-        List<Integer> res=new ArrayList<>();
+        List<Integer> list=new ArrayList<>();
+        Deque<Integer> res=new ArrayDeque<>();
         while(res.size()<k)
         {
-            if(p<0)
-            {
-                res.add(arr[q++]);
-            }
-            else if(q>=arr.length)
-            {
-                res.add(0, arr[p--]);
-            }
-            else if(x-arr[p] < arr[q]-x)
-            {
-                res.add(0, arr[p--]);
-            }
-            else if(x-arr[p] > arr[q]-x)
-            {
-                res.add(arr[q++]);
-            }
-            else
-            {
-                res.add(0, arr[p--]);
-            }
+            if(p<0) res.add(arr[q++]);
+            else if(q>=arr.length) res.addFirst(arr[p--]);
+            else if(x-arr[p] < arr[q]-x) res.addFirst(arr[p--]);
+            else if(x-arr[p] > arr[q]-x) res.add(arr[q++]);
+            else res.addFirst(arr[p--]);
         }
-        return res;
+        while(!res.isEmpty()) list.add(res.poll());
+        return list;
     }
 }
