@@ -33,31 +33,31 @@ class GFG {
 
 
 class Solution {
-    public boolean detectCycle(int V, ArrayList<ArrayList<Integer>> adj, int s, boolean visited[]) {
-        Queue<Integer> nodes=new LinkedList<>();
-        Queue<Integer> sources=new LinkedList<>();
-        nodes.offer(s);
-        sources.offer(-1);
-        while(!nodes.isEmpty())
+    
+    int findSet(int set[], int n)
+    {
+        int i=n;
+        while(set[i]!=i) i=set[i];
+        set[n]=i;
+        return i;
+    }
+    
+    public boolean isCycle(int V, ArrayList<ArrayList<Integer>> adj) {
+        int set[]=new int[V];
+        //make set
+        for(int i=0; i<V; i++) set[i]=i;
+        
+        for(int node=0; node<V; node++)
         {
-            int node=nodes.poll();
-            int source=sources.poll();
-            if(visited[node]) return true;
-            visited[node]=true;
             for(int child: adj.get(node))
             {
-                if(visited[child]) continue;
-                nodes.offer(child);
-                sources.offer(node);
+                if(child>node) //to ensure exploration of unique edges
+                {
+                    int a=findSet(set, node), b=findSet(set, child);
+                    if(a==b) return true;
+                    set[b]=a;
+                }
             }
-        }
-        return false;
-    }
-    public boolean isCycle(int V, ArrayList<ArrayList<Integer>> adj) {
-        boolean visited[]=new boolean[V];
-        for(int i=0; i<visited.length; i++)
-        {
-            if(!visited[i] && detectCycle(V, adj, i, visited)) return true;
         }
         return false;
     }
